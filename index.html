@@ -1,0 +1,620 @@
+<!--
+Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+
+Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+-->
+
+<!doctype html>
+
+<html>
+    <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="../favicon.png" />
+
+	<title>Free Bee</title>
+
+	<style>
+* {
+	background: #fbfcff;
+	color: #2d4654;
+	font-family: "Noto Sans", Calibri, sans-serif;
+}        
+
+body {
+	max-width: 650px;
+	margin: auto auto 3em auto;
+	font-size: 100%;
+}
+
+h1 {
+	margin-bottom: 0;
+}
+
+h1 > a {
+	text-decoration: none;
+	font-family: "Noto Sans", sans-serif;
+}
+
+.subtitle {
+	text-align: right;
+	margin: 0;
+	font-style: italic;
+}
+
+h2, h3, h4 {
+	color: #243b4a;
+}
+
+hr {
+	border-color: #805e73;
+}
+
+a, .subtitle {
+	color: #243b4a;
+}
+
+pre {
+	padding: .5em;
+	overflow: auto;
+}
+
+.navbar {
+	text-align: center;
+}
+
+.topbutton {
+	float: right;
+}
+
+#footer {
+	display: block;
+	text-align: right;
+	margin: 0;
+	font-style: italic;
+}
+
+#game {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.game-buttons {
+	text-align: center;
+}
+
+.game-forms {
+	text-align: center;
+}
+
+.score {
+	width: 100%;
+	height: 100px;
+}
+
+.points {
+	width: 50%;
+	height: 100%;
+	float: left;
+	text-align: center;
+}
+
+.rank {
+	width: 50%;
+	height: 100%;
+	float: left;
+	text-align: center;
+}
+
+.wordlists {
+	width: 100%;
+	height: 200px;
+}
+
+.today-answers {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.yesterday-answers {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.update-answers {
+	height: 150px;
+	border: solid;
+	overflow: scroll;
+}
+
+#update-yesterday {
+	width: 225px;
+	height: 150px;
+	float: right;
+}
+
+.answers {
+	text-align: center;
+}
+
+#random-answers {
+	text-align: center;
+}
+
+#update-random {
+	width: 225px;
+	height: 150px;
+	border: solid;
+	float: right;
+	overflow: auto;
+}
+
+.restart {
+	width: 100%;
+}
+
+.restart-daily {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.restart-random {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+img {
+	display: none;
+}
+	</style>
+    </head>
+
+    <body>
+	<a name="top"></a>
+	<div id="main">
+	    <h1><a href="." title="Top">Free Bee</a></h1>
+	    <p class="subtitle">Enhanced Free Software clone of The New York Times game Spelling Bee</p>
+	    <hr />
+		<div class="navbar">
+		    <a href="../index.html">Home</a> |
+		    <a href="#top">Play</a> |
+		    <a href="../download.html">Download</a>
+		</div>
+	    <hr />
+	</div>
+    <h2 id="play">Play Free Bee on the Web</h2>
+
+    <img id="a" src="a.png" alt="a">
+    <img id="b" src="b.png" alt="b">
+    <img id="c" src="c.png" alt="c">
+    <img id="d" src="d.png" alt="d">
+    <img id="e" src="e.png" alt="e">
+    <img id="f" src="f.png" alt="f">
+    <img id="g" src="g.png" alt="g">
+    <img id="h" src="h.png" alt="h">
+    <img id="i" src="i.png" alt="i">
+    <img id="j" src="j.png" alt="j">
+    <img id="k" src="k.png" alt="k">
+    <img id="l" src="l.png" alt="l">
+    <img id="m" src="m.png" alt="m">
+    <img id="n" src="n.png" alt="n">
+    <img id="o" src="o.png" alt="o">
+    <img id="p" src="p.png" alt="p">
+    <img id="q" src="q.png" alt="q">
+    <img id="r" src="r.png" alt="r">
+    <img id="s" src="s.png" alt="s">
+    <img id="t" src="t.png" alt="t">
+    <img id="u" src="u.png" alt="u">
+    <img id="v" src="v.png" alt="v">
+    <img id="w" src="w.png" alt="w">
+    <img id="x" src="x.png" alt="x">
+    <img id="y" src="y.png" alt="y">
+    <img id="z" src="z.png" alt="z">
+    <img id="7a" src="7a.png" alt="center a">
+    <img id="7b" src="7b.png" alt="center b">
+    <img id="7c" src="7c.png" alt="center c">
+    <img id="7d" src="7d.png" alt="center d">
+    <img id="7e" src="7e.png" alt="center e">
+    <img id="7f" src="7f.png" alt="center f">
+    <img id="7g" src="7g.png" alt="center g">
+    <img id="7h" src="7h.png" alt="center h">
+    <img id="7i" src="7i.png" alt="center i">
+    <img id="7j" src="7j.png" alt="center j">
+    <img id="7k" src="7k.png" alt="center k">
+    <img id="7l" src="7l.png" alt="center l">
+    <img id="7m" src="7m.png" alt="center m">
+    <img id="7n" src="7n.png" alt="center n">
+    <img id="7o" src="7o.png" alt="center o">
+    <img id="7p" src="7p.png" alt="center p">
+    <img id="7q" src="7q.png" alt="center q">
+    <img id="7r" src="7r.png" alt="center r">
+    <img id="7s" src="7s.png" alt="center s">
+    <img id="7t" src="7t.png" alt="center t">
+    <img id="7u" src="7u.png" alt="center u">
+    <img id="7v" src="7v.png" alt="center v">
+    <img id="7w" src="7w.png" alt="center w">
+    <img id="7x" src="7x.png" alt="center x">
+    <img id="7y" src="7y.png" alt="center y">
+    <img id="7z" src="7z.png" alt="center z">
+
+    <canvas id="game" width="260" height="300">You need canvas support to play with the web client. Perhaps you can use the <a href="download.html">ncurses-based client</a>?</canvas>
+
+    <br />
+
+    <div class="game-buttons">
+      <button onclick="shuffle()">Shuffle letters</button>
+    </div>
+
+    <br />
+
+    <div class="game-forms">
+      <form id="player-guess" onsubmit="check(); return false">
+	<input type="text" id="guess" placeholder="Enter word">
+	<input type="submit" value="Submit">
+      </form>
+    </div>
+
+    <br />
+
+    <div class="score">
+      <div class="points">
+	<h4>Points</h4>
+	<span id="points-update">0</span>
+      </div>
+      <div class="rank">
+	<h4>Rank</h4>
+	<span id="rank-update">Newbie</span>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="wordlists">
+      <div class="today-answers">
+	<h4 class="answers">Words found</h4>
+	<div class="update-answers">
+	  <div id="answers-update"></div>
+	</div>
+      </div>
+      <div class="yesterday-answers">
+	<h4 id="yesterday-or-random" class="answers">Yesterday's answers</h4>
+	<iframe id="update-yesterday" src="../daily/yesterday.txt" title="Yesterday's answers"></iframe>
+	<div id="update-random"></div>
+      </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="restart">
+      <div class="restart-daily">
+	<button onclick="daily()">Restart daily game</button>
+      </div>
+      <div class="restart-random">
+	<button onclick="random()">Start random game</button>
+	<div id="random-answers">
+	  <button onclick="show_random()">Show answers</button>
+	</div>
+      </div>
+    </div>
+
+    <br />
+    <br />
+    <hr />
+    <p id="footer">Free Bee is brought to you by Studio Urban Homestead | OpenBSD httpd</p>
+
+    <script type="text/javascript">
+      var all;
+      var found;
+      var foundlist = [];
+      var guess;
+      var letters = [];
+      var points;
+      var rank1, rank2, rank3, rank4, rank5, rank6, rank7, rank8, rank9;
+      var total;
+      var win;
+      var wordlist = [];
+      var words;
+
+      function display() {
+	var canvas = document.getElementById("game");
+	var ctx = canvas.getContext("2d");
+
+        var letter1 = document.getElementById(letters[0]);
+        var letter2 = document.getElementById(letters[1]);
+        var letter3 = document.getElementById(letters[2]);
+        var letter4 = document.getElementById(letters[3]);
+        var letter5 = document.getElementById(letters[4]);
+        var letter6 = document.getElementById(letters[5]);
+        var letter7 = document.getElementById(letters[6]);
+
+        ctx.drawImage(letter1, 0, 50);
+        ctx.drawImage(letter2, 80, 0);
+        ctx.drawImage(letter3, 160, 50);
+        ctx.drawImage(letter4, 0, 150);
+        ctx.drawImage(letter5, 80, 200);
+        ctx.drawImage(letter6, 160, 150);
+        ctx.drawImage(letter7, 80, 100);
+      }
+
+      function update_rank() {
+	var rank;
+
+	if (points >= rank9) {
+	  if (win == 0) {
+	    alert("You earned the rank of Queen Bee!\n\nCan you find all the words?");
+	    win = 1;
+	  }
+	  rank = "Queen Bee!";
+	} else if (points >= rank8) {
+	  rank = "Outstanding";
+	} else if (points >= rank7) {
+	  rank = "Marvellous";
+	} else if (points >= rank6) {
+	  rank = "Superb";
+	} else if (points >= rank5) {
+	  rank = "Excellent";
+	} else if (points >= rank4) {
+	  rank = "Skilled";
+	} else if (points >= rank3) {
+	  rank = "Fine";
+	} else if (points >= rank2) {
+	  rank = "Novice";
+	} else {
+	  rank = "Newbie";
+	}
+
+	document.getElementById("rank-update").innerHTML = rank;
+      }
+
+      function set_rank() {
+	rank1 = 0;
+	rank2 = Math.floor(total * 0.02);
+	rank3 = Math.floor(total * 0.05);
+	rank4 = Math.floor(total * 0.08);
+	rank5 = Math.floor(total * 0.15);
+	rank6 = Math.floor(total * 0.25);
+	rank7 = Math.floor(total * 0.40);
+	rank8 = Math.floor(total * 0.50);
+	rank9 = Math.floor(total * 0.70);
+      }
+
+      function add_points() {
+	var one = 0, two = 0, three = 0, four = 0, five = 0, six = 0;
+	var i = 0, j = 0;
+
+	i = guess.length;
+	if (i < 7) {
+	  if (i == 4) {
+	    i = 1;
+	  }
+	  points = points + i;
+
+	  return;
+	}
+
+	i = 0;
+	while (i < guess.length) {
+	  for (j = 0; j < 7; j++) {
+	    if (guess[i] == letters[j]) {
+	      if (j == 0) {
+		one = 1;
+	      }
+	      if (j == 1) {
+		two = 1;
+	      }
+	      if (j == 2) {
+		three = 1;
+	      }
+	      if (j == 3) {
+		four = 1;
+	      }
+	      if (j == 4) {
+		five = 1;
+	      }
+	      if (j == 5) {
+		six = 1;
+	      }
+	    }
+	  }
+	  i = i + 1;
+	}
+
+	if (one == 1 && two == 1 && three == 1 && four == 1 && five == 1 && six == 1) {
+	  points = points + guess.length + 7;
+	  alert("Pangram!");
+
+	  return;
+	}
+
+	points = points + guess.length;
+      }
+
+      function found_word() {
+	var i;
+
+	for (i = 0; i < found; i++) {
+	  if (guess == foundlist[i]) {
+	    alert("Word already found");
+	    return;
+	  }
+	}
+
+	foundlist.push(guess);
+
+	found = found + 1;
+
+	add_points();
+
+	document.getElementById("points-update").innerHTML = points;
+	document.getElementById("answers-update").innerHTML = foundlist.join("<br />");
+
+	update_rank();
+
+	if (found == words) {
+	  alert("Congratulations! You found all the words!");
+	  all = 1;
+	}
+      }
+
+      function check() {
+	var center = 0, i;
+
+	guess = document.getElementById("guess").value.toLowerCase();
+
+	document.getElementById("player-guess").reset();
+
+	for (i = 0; i < guess.length; i++) {
+	  if ("7" + guess[i] == letters[6]) {
+	    center = 1;
+	  }
+	}
+
+	if (center == 0) {
+	  alert("Must use center letter");
+	  return;
+	}
+
+	if (guess.length < 4) {
+	  alert("Too short!");
+	  return;
+	}
+
+	for (i = 0; i < words; i++) {
+	  if (guess == wordlist[i]) {
+	    found_word();
+	    return;
+	  }
+	}
+	alert("Word not in list");
+      }
+
+      function daily() {
+	var xhttp = new XMLHttpRequest();
+	var i;
+
+	for (i = 0; i < found; i++) {
+	  foundlist.pop();
+	}
+
+	all = 0;
+	found = 0;
+	points = 0;
+	rank = "Newbie";
+	win = 0;
+
+	document.getElementById("points-update").innerHTML = points;
+	document.getElementById("answers-update").innerHTML = foundlist.join("<br />");
+	document.getElementById("rank-update").innerHTML = rank;
+	document.getElementById("yesterday-or-random").innerHTML = "Yesterday's answers";
+	document.getElementById("random-answers").style.display = "none";
+	document.getElementById("update-random").style.display = "none";
+	document.getElementById("update-yesterday").style.display = "block";
+	document.getElementById("update-random").innerHTML = "";
+
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+	    var gameObj = JSON.parse(this.responseText);
+	    letters[0] = gameObj.letters[0];
+	    letters[1] = gameObj.letters[1];
+	    letters[2] = gameObj.letters[2];
+	    letters[3] = gameObj.letters[3];
+	    letters[4] = gameObj.letters[4];
+	    letters[5] = gameObj.letters[5];
+	    letters[6] = "7" + gameObj.letters[6];
+	    words = gameObj.words;
+	    total = gameObj.total;
+	    wordlist = gameObj.wordlist;
+	    set_rank();
+	    display();
+	  }
+	};
+
+	xhttp.open("GET", "../../../cgi-bin/freebee", true);
+	xhttp.send();
+      }
+
+      window.onload = function() {
+	daily();
+      };
+
+      function shuffle() {
+	var i, j, t;
+
+	for (i = 5; i > 0; i--) {
+	  j = Math.floor(Math.random() * (i + 1));
+	  t = letters[j];
+	  letters[j] = letters[i];
+	  letters[i] = t;
+	}
+
+	display();
+      }
+
+      function random() {
+	var xhttp = new XMLHttpRequest();
+	var i;
+
+	for (i = 0; i < found; i++) {
+	  foundlist.pop();
+	}
+
+	all = 0;
+	found = 0;
+	points = 0;
+	rank = "Newbie";
+	win = 0;
+
+	document.getElementById("points-update").innerHTML = points;
+	document.getElementById("answers-update").innerHTML = foundlist.join("<br />");
+	document.getElementById("rank-update").innerHTML = rank;
+	document.getElementById("yesterday-or-random").innerHTML = "Answers";
+	document.getElementById("update-random").style.display = "block";
+	document.getElementById("update-yesterday").style.display = "none";
+	document.getElementById("update-random").innerHTML = "";
+
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+	    var gameObj = JSON.parse(this.responseText);
+	    letters[0] = gameObj.letters[0];
+	    letters[1] = gameObj.letters[1];
+	    letters[2] = gameObj.letters[2];
+	    letters[3] = gameObj.letters[3];
+	    letters[4] = gameObj.letters[4];
+	    letters[5] = gameObj.letters[5];
+	    letters[6] = "7" + gameObj.letters[6];
+	    words = gameObj.words;
+	    total = gameObj.total;
+	    wordlist = gameObj.wordlist;
+	    set_rank();
+	    display();
+	    document.getElementById("random-answers").style.display = "block";
+	  }
+	};
+
+	xhttp.open("GET", "../../../cgi-bin/freebee-random", true);
+	xhttp.send();
+      }
+
+      function show_random() {
+	document.getElementById("update-random").innerHTML = wordlist.join("<br />") + "<br />" + "<br />Total words:  " + words + "<br />Total points: " + total + "<br />Points for Queen Bee: " + Math.floor(total * 0.70);
+      }
+    </script>
+
+    </body>
+</html>
