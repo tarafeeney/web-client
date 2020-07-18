@@ -19,6 +19,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 <html>
     <head>
 	<meta charset="utf-8">
+	<meta http-equiv="Cache-Control" content="private, no-store" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/png" href="../favicon.png" />
 
@@ -104,12 +105,16 @@ pre {
 }
 
 .message {
-	display: inline;
+	display: none;
 	color: #ff6961;
 }
 
-#pangram.message {
+#no-message.message {
 	display: inline;
+}
+
+#pangram.message {
+	display: none;
 	color: #0047ab;
 }
 
@@ -167,10 +172,12 @@ pre {
 }
 
 #random-answers {
+	display: none;
 	text-align: center;
 }
 
 #update-random {
+	display: none;
 	width: 225px;
 	height: 150px;
 	border: solid;
