@@ -285,7 +285,7 @@ img.bg {
 	  <img id="comb1" class="bg" src="comb.png" width="100" height="100"><img id="comb2" class="bg" src="comb.png" width="100" height="100"><img id="comb3" class="bg" src="comb.png" width="100" height="100"><img id="comb4" class="bg" src="comb.png" width="100" height="100"><img id="comb5" class="bg" src="comb.png" width="100" height="100"><img id="comb6" class="bg" src="comb.png" width="100" height="100"><img id="comb7" class="bg" src="comb-inv.png" width="100" height="100">
 	</div>
 	<div id="playfield-fg">
-	  <img id="play1" class="fg" width="21" height="21"><img id="play2" class="fg" width="21" height="21"><img id="play3" class="fg" width="21" height="21"><img id="play4" class="fg" width="21" height="21"><img id="play5" class="fg" width="21" height="21"><img id="play6" class="fg" width="21" height="21"><img id="play7" class="fg" width="21" height="21">
+	  <img id="play1" class="fg" width="60" height="100"><img id="play2" class="fg" width="60" height="100"><img id="play3" class="fg" width="60" height="100"><img id="play4" class="fg" width="60" height="100"><img id="play5" class="fg" width="60" height="100"><img id="play6" class="fg" width="60" height="100"><img id="play7" class="fg" width="60" height="100">
 	</div>
       </div>
     </div>
@@ -381,44 +381,44 @@ img.bg {
 
       function display() {
 	document.getElementById("play1").src = letters[0] + ".png";
-	document.getElementById("play1").style.left = "39px";
-	document.getElementById("play1").style.top = "89px";
+	document.getElementById("play1").style.left = "19px";
+	document.getElementById("play1").style.top = "50px";
 	document.getElementById("play1").onclick = function() {type(letters[0])};
 	document.getElementById("play1").style.display = "block";
 
 	document.getElementById("play2").src = letters[1] + ".png";
-	document.getElementById("play2").style.left = "119px";
-	document.getElementById("play2").style.top = "39px";
+	document.getElementById("play2").style.left = "99px";
+	document.getElementById("play2").style.top = "0px";
 	document.getElementById("play2").onclick = function() {type(letters[1])};
 	document.getElementById("play2").style.display = "block";
 
 	document.getElementById("play3").src = letters[2] + ".png";
-	document.getElementById("play3").style.left = "199px";
-	document.getElementById("play3").style.top = "89px";
+	document.getElementById("play3").style.left = "179px";
+	document.getElementById("play3").style.top = "50px";
 	document.getElementById("play3").onclick = function() {type(letters[2])};
 	document.getElementById("play3").style.display = "block";
 
 	document.getElementById("play4").src = letters[3] + ".png";
-	document.getElementById("play4").style.left = "39px";
-	document.getElementById("play4").style.top = "189px";
+	document.getElementById("play4").style.left = "19px";
+	document.getElementById("play4").style.top = "150px";
 	document.getElementById("play4").onclick = function() {type(letters[3])};
 	document.getElementById("play4").style.display = "block";
 
 	document.getElementById("play5").src = letters[4] + ".png";
-	document.getElementById("play5").style.left = "119px";
-	document.getElementById("play5").style.top = "239px";
+	document.getElementById("play5").style.left = "99px";
+	document.getElementById("play5").style.top = "200px";
 	document.getElementById("play5").onclick = function() {type(letters[4])};
 	document.getElementById("play5").style.display = "block";
 
 	document.getElementById("play6").src = letters[5] + ".png";
-	document.getElementById("play6").style.left = "199px";
-	document.getElementById("play6").style.top = "189px";
+	document.getElementById("play6").style.left = "179px";
+	document.getElementById("play6").style.top = "150px";
 	document.getElementById("play6").onclick = function() {type(letters[5])};
 	document.getElementById("play6").style.display = "block";
 
 	document.getElementById("play7").src = letters[6] + ".png";
-	document.getElementById("play7").style.left = "119px";
-	document.getElementById("play7").style.top = "139px";
+	document.getElementById("play7").style.left = "99px";
+	document.getElementById("play7").style.top = "100px";
 	document.getElementById("play7").onclick = function() {type(letters[6][1])};
 	document.getElementById("play7").style.display = "block";
       }
