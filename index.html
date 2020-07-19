@@ -85,7 +85,9 @@ pre {
 }
 
 #game {
-	display: block;
+	width: 240px;
+	height: 300px;
+	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -202,6 +204,7 @@ pre {
 
 img {
 	display: none;
+	background: transparent;
 }
 	</style>
     </head>
@@ -275,7 +278,9 @@ img {
     <img id="7y" src="7y.png" alt="center y">
     <img id="7z" src="7z.png" alt="center z">
 
-    <canvas id="game" width="260" height="300">You need canvas support to play with the web client. Perhaps you can use the <a href="download.html">ncurses-based client</a>?</canvas>
+    <div id="game">
+      <img id="play1"><img id="play2" width="100" height="100"><img id="play3" width="100" height="100"><img id="play4" width="100" height="100"><img id="play5" width="100" height="100"><img id="play6" width="100" height="100"><img id="play7" width="100" height="100">
+    </div>
 
     <br />
 
@@ -362,25 +367,59 @@ img {
       var wordlist = [];
       var words;
 
+      function type(letter) {
+	document.getElementById("guess").value = document.getElementById("guess").value + letter;
+      }
+
       function display() {
-	var canvas = document.getElementById("game");
-	var ctx = canvas.getContext("2d");
+	document.getElementById("play1").src = letters[0] + ".png";
+	document.getElementById("play1").style.display = "inline";
+	document.getElementById("play1").style.position = "absolute";
+	document.getElementById("play1").style.left = "0px";
+	document.getElementById("play1").style.top = "50px";
+	document.getElementById("play1").onclick = function() {type(letters[0])};
 
-        var letter1 = document.getElementById(letters[0]);
-        var letter2 = document.getElementById(letters[1]);
-        var letter3 = document.getElementById(letters[2]);
-        var letter4 = document.getElementById(letters[3]);
-        var letter5 = document.getElementById(letters[4]);
-        var letter6 = document.getElementById(letters[5]);
-        var letter7 = document.getElementById(letters[6]);
+	document.getElementById("play2").src = letters[1] + ".png";
+	document.getElementById("play2").style.display = "inline";
+	document.getElementById("play2").style.position = "absolute";
+	document.getElementById("play2").style.left = "80px";
+	document.getElementById("play2").style.top = "0px";
+	document.getElementById("play2").onclick = function() {type(letters[1])};
 
-        ctx.drawImage(letter1, 0, 50);
-        ctx.drawImage(letter2, 80, 0);
-        ctx.drawImage(letter3, 160, 50);
-        ctx.drawImage(letter4, 0, 150);
-        ctx.drawImage(letter5, 80, 200);
-        ctx.drawImage(letter6, 160, 150);
-        ctx.drawImage(letter7, 80, 100);
+	document.getElementById("play3").src = letters[2] + ".png";
+	document.getElementById("play3").style.display = "inline";
+	document.getElementById("play3").style.position = "absolute";
+	document.getElementById("play3").style.left = "160px";
+	document.getElementById("play3").style.top = "50px";
+	document.getElementById("play3").onclick = function() {type(letters[2])};
+
+	document.getElementById("play4").src = letters[3] + ".png";
+	document.getElementById("play4").style.display = "inline";
+	document.getElementById("play4").style.position = "absolute";
+	document.getElementById("play4").style.left = "0px";
+	document.getElementById("play4").style.top = "150px";
+	document.getElementById("play4").onclick = function() {type(letters[3])};
+
+	document.getElementById("play5").src = letters[4] + ".png";
+	document.getElementById("play5").style.display = "inline";
+	document.getElementById("play5").style.position = "absolute";
+	document.getElementById("play5").style.left = "80px";
+	document.getElementById("play5").style.top = "200px";
+	document.getElementById("play5").onclick = function() {type(letters[4])};
+
+	document.getElementById("play6").src = letters[5] + ".png";
+	document.getElementById("play6").style.display = "inline";
+	document.getElementById("play6").style.position = "absolute";
+	document.getElementById("play6").style.left = "160px";
+	document.getElementById("play6").style.top = "150px";
+	document.getElementById("play6").onclick = function() {type(letters[5])};
+
+	document.getElementById("play7").src = letters[6] + ".png";
+	document.getElementById("play7").style.display = "inline";
+	document.getElementById("play7").style.position = "absolute";
+	document.getElementById("play7").style.left = "80px";
+	document.getElementById("play7").style.top = "100px";
+	document.getElementById("play7").onclick = function() {type(letters[6][1])};
       }
 
       function update_rank() {
