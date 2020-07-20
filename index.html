@@ -210,13 +210,6 @@ pre {
 	overflow: scroll;
 }
 
-#update-yesterday {
-	width: 240px;
-	height: 150px;
-	border: solid;
-	float: right;
-}
-
 .answers {
 	text-align: center;
 }
@@ -227,7 +220,7 @@ pre {
 }
 
 #update-random {
-	display: none;
+	display: block;
 	width: 225px;
 	height: 150px;
 	border: solid;
@@ -337,7 +330,6 @@ img.bg {
       </div>
       <div class="yesterday-answers">
 	<h4 id="yesterday-or-random" class="answers">Yesterday's answers</h4>
-	<iframe id="update-yesterday" src="../daily/yesterday.txt" title="Yesterday's answers"></iframe>
 	<div id="update-random"></div>
       </div>
     </div>
@@ -350,7 +342,7 @@ img.bg {
 	<button onclick="daily()">Restart daily game</button>
       </div>
       <div class="restart-random">
-	<button onclick="random()">Start random game</button>
+	<button onclick="random()">New random game</button>
 	<div id="random-answers">
 	  <button onclick="show_random()">Show answers</button>
 	</div>
@@ -370,10 +362,10 @@ img.bg {
       var letters = [];
       var points;
       var rank1, rank2, rank3, rank4, rank5, rank6, rank7, rank8, rank9;
-      var total;
+      var total, yesterdaytotal;
       var win;
-      var wordlist = [];
-      var words;
+      var wordlist = [], yesterdaywordlist = [];
+      var words, yesterdaywords;
 
       function type(letter) {
 	document.getElementById("guess").value = document.getElementById("guess").value + letter;
@@ -606,8 +598,6 @@ img.bg {
 	document.getElementById("rank-update").innerHTML = rank;
 	document.getElementById("yesterday-or-random").innerHTML = "Yesterday's answers";
 	document.getElementById("random-answers").style.display = "none";
-	document.getElementById("update-random").style.display = "none";
-	document.getElementById("update-yesterday").style.display = "block";
 	document.getElementById("update-random").innerHTML = "";
 	document.getElementById("no-message").style.display = "inline";
 	document.getElementById("pangram").style.display = "none";
@@ -636,6 +626,7 @@ img.bg {
 	    words = gameObj.words;
 	    total = gameObj.total;
 	    wordlist = gameObj.wordlist;
+	    document.getElementById("update-random").innerHTML = yesterdaywordlist.join("<br />") + "<br />" + "<br />Total words:  " + yesterdaywords + "<br />Total points: " + yesterdaytotal + "<br />Points for Queen Bee: " + Math.floor(total * 0.70);
 	    set_rank();
 	    display();
 	  }
@@ -645,7 +636,23 @@ img.bg {
 	xhttp.send();
       }
 
+      function get_yesterday() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+	    var gameObj = JSON.parse(this.responseText);
+	    yesterdaywords = gameObj.words;
+	    yesterdaytotal = gameObj.total;
+	    yesterdaywordlist = gameObj.wordlist;
+	  }
+	};
+
+	xhttp.open("GET", "../../cgi-bin/freebee-yesterday", true);
+	xhttp.send();
+      }
+
       window.onload = function() {
+	get_yesterday();
 	daily();
       };
 
@@ -680,8 +687,6 @@ img.bg {
 	document.getElementById("answers-update").innerHTML = foundlist.join("<br />");
 	document.getElementById("rank-update").innerHTML = rank;
 	document.getElementById("yesterday-or-random").innerHTML = "Answers";
-	document.getElementById("update-random").style.display = "block";
-	document.getElementById("update-yesterday").style.display = "none";
 	document.getElementById("update-random").innerHTML = "";
 	document.getElementById("no-message").style.display = "inline";
 	document.getElementById("pangram").style.display = "none";
