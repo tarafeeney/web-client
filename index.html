@@ -359,13 +359,13 @@ img.bg {
       var found;
       var foundlist = [];
       var guess;
-      var letters = [];
+      var letters = [], todayletters = [];
       var points;
       var rank1, rank2, rank3, rank4, rank5, rank6, rank7, rank8, rank9;
-      var total, yesterdaytotal;
+      var total, todaytotal, yesterdaytotal;
       var win;
-      var wordlist = [], yesterdaywordlist = [];
-      var words, yesterdaywords;
+      var wordlist = [], todaywordlist = [], yesterdaywordlist = [];
+      var words, todaywords, yesterdaywords;
 
       function type(letter) {
 	document.getElementById("guess").value = document.getElementById("guess").value + letter;
@@ -580,7 +580,6 @@ img.bg {
       }
 
       function daily() {
-	var xhttp = new XMLHttpRequest();
 	var i;
 
 	for (i = 0; i < found; i++) {
@@ -613,27 +612,19 @@ img.bg {
 	document.getElementById("play6").style.display = "none";
 	document.getElementById("play7").style.display = "none";
 
-	xhttp.onreadystatechange = function() {
-	  if (this.readyState == 4 && this.status == 200) {
-	    var gameObj = JSON.parse(this.responseText);
-	    letters[0] = gameObj.letters[0];
-	    letters[1] = gameObj.letters[1];
-	    letters[2] = gameObj.letters[2];
-	    letters[3] = gameObj.letters[3];
-	    letters[4] = gameObj.letters[4];
-	    letters[5] = gameObj.letters[5];
-	    letters[6] = "7" + gameObj.center;
-	    words = gameObj.words;
-	    total = gameObj.total;
-	    wordlist = gameObj.wordlist;
-	    document.getElementById("update-random").innerHTML = yesterdaywordlist.join("<br />") + "<br />" + "<br />Total words:  " + yesterdaywords + "<br />Total points: " + yesterdaytotal + "<br />Points for Queen Bee: " + Math.floor(total * 0.70);
-	    set_rank();
-	    display();
-	  }
-	};
-
-	xhttp.open("GET", "../../cgi-bin/freebee-daily", true);
-	xhttp.send();
+	letters[0] = todayletters[0];
+	letters[1] = todayletters[1];
+	letters[2] = todayletters[2];
+	letters[3] = todayletters[3];
+	letters[4] = todayletters[4];
+	letters[5] = todayletters[5];
+	letters[6] = todayletters[6];
+	words = todaywords;
+	total = todaytotal;
+	wordlist = todaywordlist;
+	set_rank();
+	document.getElementById("update-random").innerHTML = yesterdaywordlist.join("<br />") + "<br />" + "<br />Total words:  " + yesterdaywords + "<br />Total points: " + yesterdaytotal + "<br />Points for Queen Bee: " + Math.floor(yesterdaytotal * 0.70);
+	display();
       }
 
       function get_yesterday() {
@@ -651,9 +642,32 @@ img.bg {
 	xhttp.send();
       }
 
+      function get_today() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+	    var gameObj = JSON.parse(this.responseText);
+	    todayletters[0] = gameObj.letters[0];
+	    todayletters[1] = gameObj.letters[1];
+	    todayletters[2] = gameObj.letters[2];
+	    todayletters[3] = gameObj.letters[3];
+	    todayletters[4] = gameObj.letters[4];
+	    todayletters[5] = gameObj.letters[5];
+	    todayletters[6] = "7" + gameObj.center;
+	    todaywords = gameObj.words;
+	    todaytotal = gameObj.total;
+	    todaywordlist = gameObj.wordlist;
+	    daily();
+	  }
+	};
+
+	xhttp.open("GET", "../../cgi-bin/freebee-daily", true);
+	xhttp.send();
+      }
+
       window.onload = function() {
 	get_yesterday();
-	daily();
+	get_today();
       };
 
       function shuffle() {
