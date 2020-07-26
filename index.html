@@ -92,55 +92,6 @@ pre {
 	margin-right: auto;
 }
 
-#comb1 {
-	width: 100px;
-	height: 100px;
-	left: 1px;
-	top: 51px;
-}
-
-#comb2 {
-	width: 100px;
-	height: 100px;
-	left: 80px;
-	top: 1px;
-}
-
-#comb3 {
-	width: 100px;
-	height: 100px;
-	left: 159px;
-	top: 51px;
-}
-
-#comb4 {
-	width: 100px;
-	height: 100px;
-	left: 1px;
-	top: 149px;
-}
-
-#comb5 {
-	width: 100px;
-	height: 100px;
-	left: 80px;
-	top: 199px;
-}
-
-#comb6 {
-	width: 100px;
-	height: 100px;
-	left: 159px;
-	top: 149px;
-}
-
-#comb7 {
-	width: 100px;
-	height: 100px;
-	left: 80px;
-	top: 100px;
-}
-
 .game-buttons {
 	text-align: center;
 }
@@ -275,7 +226,7 @@ img.bg {
     <div id="game">
       <div id="playfield">
 	<div id="playfield-bg">
-	  <img id="comb1" class="bg" src="comb.png" width="100" height="100"><img id="comb2" class="bg" src="comb.png" width="100" height="100"><img id="comb3" class="bg" src="comb.png" width="100" height="100"><img id="comb4" class="bg" src="comb.png" width="100" height="100"><img id="comb5" class="bg" src="comb.png" width="100" height="100"><img id="comb6" class="bg" src="comb.png" width="100" height="100"><img id="comb7" class="bg" src="comb-inv.png" width="100" height="100">
+	  <img id="comb1" class="bg" src="comb.png"><img id="comb2" class="bg" src="comb.png"><img id="comb3" class="bg" src="comb.png"><img id="comb4" class="bg" src="comb.png"><img id="comb5" class="bg" src="comb.png"><img id="comb6" class="bg" src="comb.png"><img id="comb7" class="bg" src="comb-inv.png">
 	</div>
 	<div id="playfield-fg">
 	  <img id="play1" class="fg" width="60" height="100"><img id="play2" class="fg" width="60" height="100"><img id="play3" class="fg" width="60" height="100"><img id="play4" class="fg" width="60" height="100"><img id="play5" class="fg" width="60" height="100"><img id="play6" class="fg" width="60" height="100"><img id="play7" class="fg" width="60" height="100">
@@ -367,52 +318,124 @@ img.bg {
       var wordlist = [], todaywordlist = [], yesterdaywordlist = [];
       var words, todaywords, yesterdaywords;
 
-      function type(letter) {
+      function type(letter, combno) {
+	document.getElementById("comb" + combno).style.height = "80px";
+	document.getElementById("comb" + combno).style.width = "80px";
+	document.getElementById("comb" + combno).style.left = parseInt(document.getElementById("comb" + combno).style.left) + 10 + "px";
+	document.getElementById("comb" + combno).style.top = parseInt(document.getElementById("comb" + combno).style.top) + 10 + "px";
 	document.getElementById("guess").value = document.getElementById("guess").value + letter;
       }
 
+      function untype() {
+	document.getElementById("comb1").style.height = "100px";
+	document.getElementById("comb1").style.width = "100px";
+	document.getElementById("comb1").style.left = "1px";
+	document.getElementById("comb1").style.top = "51px";
+	document.getElementById("comb2").style.height = "100px";
+	document.getElementById("comb2").style.width = "100px";
+	document.getElementById("comb2").style.left = "80px";
+	document.getElementById("comb2").style.top = "1px";
+	document.getElementById("comb3").style.height = "100px";
+	document.getElementById("comb3").style.width = "100px";
+	document.getElementById("comb3").style.left = "159px";
+	document.getElementById("comb3").style.top = "51px";
+	document.getElementById("comb4").style.height = "100px";
+	document.getElementById("comb4").style.width = "100px";
+	document.getElementById("comb4").style.left = "1px";
+	document.getElementById("comb4").style.top = "149px";
+	document.getElementById("comb5").style.height = "100px";
+	document.getElementById("comb5").style.width = "100px";
+	document.getElementById("comb5").style.left = "80px";
+	document.getElementById("comb5").style.top = "199px";
+	document.getElementById("comb6").style.height = "100px";
+	document.getElementById("comb6").style.width = "100px";
+	document.getElementById("comb6").style.left = "159px";
+	document.getElementById("comb6").style.top = "149px";
+	document.getElementById("comb7").style.height = "100px";
+	document.getElementById("comb7").style.width = "100px";
+	document.getElementById("comb7").style.left = "80px";
+	document.getElementById("comb7").style.top = "100px";
+      }
+
       function display() {
+	var didtouch = 0;
+
 	document.getElementById("play1").src = letters[0] + ".png";
 	document.getElementById("play1").style.left = "20px";
 	document.getElementById("play1").style.top = "50px";
-	document.getElementById("play1").onclick = function() {type(letters[0])};
+	document.getElementById("play1").ontouchstart = function() {didtouch = 1; type(letters[0], 1)};
+	document.getElementById("play1").onmousedown = function() {if (didtouch != 1) {type(letters[0], 1)}};
 	document.getElementById("play1").style.display = "block";
+	document.getElementById("play1").onmouseup = function() {untype()};
+	document.getElementById("play1").ondragend = function() {untype()};
+	document.getElementById("play1").ontouchend = function() {untype()};
+	document.getElementById("play1").ontouchcancel = function() {untype()};
 
 	document.getElementById("play2").src = letters[1] + ".png";
 	document.getElementById("play2").style.left = "100px";
 	document.getElementById("play2").style.top = "0px";
-	document.getElementById("play2").onclick = function() {type(letters[1])};
+	document.getElementById("play2").ontouchstart = function() {didtouch = 1; type(letters[1], 2)};
+	document.getElementById("play2").onmousedown = function() {if (didtouch != 1) {type(letters[1], 2)}};
 	document.getElementById("play2").style.display = "block";
+	document.getElementById("play2").onmouseup = function() {untype()};
+	document.getElementById("play2").ondragend = function() {untype()};
+	document.getElementById("play2").ontouchend = function() {untype()};
+	document.getElementById("play2").ontouchcancel = function() {untype()};
 
 	document.getElementById("play3").src = letters[2] + ".png";
 	document.getElementById("play3").style.left = "180px";
 	document.getElementById("play3").style.top = "50px";
-	document.getElementById("play3").onclick = function() {type(letters[2])};
+	document.getElementById("play3").ontouchstart = function() {didtouch = 1; type(letters[2], 3)};
+	document.getElementById("play3").onmousedown = function() {if (didtouch != 1) {type(letters[2], 3)}};
 	document.getElementById("play3").style.display = "block";
+	document.getElementById("play3").onmouseup = function() {untype()};
+	document.getElementById("play3").ondragend = function() {untype()};
+	document.getElementById("play3").ontouchend = function() {untype()};
+	document.getElementById("play3").ontouchcancel = function() {untype()};
 
 	document.getElementById("play4").src = letters[3] + ".png";
 	document.getElementById("play4").style.left = "20px";
 	document.getElementById("play4").style.top = "150px";
-	document.getElementById("play4").onclick = function() {type(letters[3])};
+	document.getElementById("play4").ontouchstart = function() {didtouch = 1; type(letters[3], 4)};
+	document.getElementById("play4").onmousedown = function() {if (didtouch != 1) {type(letters[3], 4)}};
 	document.getElementById("play4").style.display = "block";
+	document.getElementById("play4").onmouseup = function() {untype()};
+	document.getElementById("play4").ondragend = function() {untype()};
+	document.getElementById("play4").ontouchend = function() {untype()};
+	document.getElementById("play4").ontouchcancel = function() {untype()};
 
 	document.getElementById("play5").src = letters[4] + ".png";
 	document.getElementById("play5").style.left = "100px";
 	document.getElementById("play5").style.top = "200px";
-	document.getElementById("play5").onclick = function() {type(letters[4])};
+	document.getElementById("play5").ontouchstart = function() {didtouch = 1; type(letters[4], 5)};
+	document.getElementById("play5").onmousedown = function() {if (didtouch != 1) {type(letters[4], 5)}};
 	document.getElementById("play5").style.display = "block";
+	document.getElementById("play5").onmouseup = function() {untype()};
+	document.getElementById("play5").ondragend = function() {untype()};
+	document.getElementById("play5").ontouchend = function() {untype()};
+	document.getElementById("play5").ontouchcancel = function() {untype()};
 
 	document.getElementById("play6").src = letters[5] + ".png";
 	document.getElementById("play6").style.left = "180px";
 	document.getElementById("play6").style.top = "150px";
-	document.getElementById("play6").onclick = function() {type(letters[5])};
+	document.getElementById("play6").ontouchstart = function() {didtouch = 1; type(letters[5], 6)};
+	document.getElementById("play6").onmousedown = function() {if (didtouch != 1) {type(letters[5], 6)}};
 	document.getElementById("play6").style.display = "block";
+	document.getElementById("play6").onmouseup = function() {untype()};
+	document.getElementById("play6").ondragend = function() {untype()};
+	document.getElementById("play6").ontouchend = function() {untype()};
+	document.getElementById("play6").ontouchcancel = function() {untype()};
 
 	document.getElementById("play7").src = letters[6] + ".png";
 	document.getElementById("play7").style.left = "100px";
 	document.getElementById("play7").style.top = "100px";
-	document.getElementById("play7").onclick = function() {type(letters[6][1])};
+	document.getElementById("play7").ontouchstart = function() {didtouch = 1; type(letters[6][1], 7)};
+	document.getElementById("play7").onmousedown = function() {if (didtouch != 1) {type(letters[6][1], 7)}};
 	document.getElementById("play7").style.display = "block";
+	document.getElementById("play7").onmouseup = function() {untype()};
+	document.getElementById("play7").ondragend = function() {untype()};
+	document.getElementById("play7").ontouchend = function() {untype()};
+	document.getElementById("play7").ontouchcancel = function() {untype()};
       }
 
       function update_rank() {
@@ -638,7 +661,7 @@ img.bg {
 	  }
 	};
 
-	xhttp.open("GET", "../../cgi-bin/freebee-yesterday", true);
+	xhttp.open("GET", "yesterday", true);
 	xhttp.send();
       }
 
@@ -661,11 +684,39 @@ img.bg {
 	  }
 	};
 
-	xhttp.open("GET", "../../cgi-bin/freebee-daily", true);
+	xhttp.open("GET", "today", true);
 	xhttp.send();
       }
 
       window.onload = function() {
+	document.getElementById("comb1").style.height = "100px";
+	document.getElementById("comb1").style.width = "100px";
+	document.getElementById("comb1").style.left = "1px";
+	document.getElementById("comb1").style.top = "51px";
+	document.getElementById("comb2").style.height = "100px";
+	document.getElementById("comb2").style.width = "100px";
+	document.getElementById("comb2").style.left = "80px";
+	document.getElementById("comb2").style.top = "1px";
+	document.getElementById("comb3").style.height = "100px";
+	document.getElementById("comb3").style.width = "100px";
+	document.getElementById("comb3").style.left = "159px";
+	document.getElementById("comb3").style.top = "51px";
+	document.getElementById("comb4").style.height = "100px";
+	document.getElementById("comb4").style.width = "100px";
+	document.getElementById("comb4").style.left = "1px";
+	document.getElementById("comb4").style.top = "149px";
+	document.getElementById("comb5").style.height = "100px";
+	document.getElementById("comb5").style.width = "100px";
+	document.getElementById("comb5").style.left = "80px";
+	document.getElementById("comb5").style.top = "199px";
+	document.getElementById("comb6").style.height = "100px";
+	document.getElementById("comb6").style.width = "100px";
+	document.getElementById("comb6").style.left = "159px";
+	document.getElementById("comb6").style.top = "149px";
+	document.getElementById("comb7").style.height = "100px";
+	document.getElementById("comb7").style.width = "100px";
+	document.getElementById("comb7").style.left = "80px";
+	document.getElementById("comb7").style.top = "100px";
 	get_yesterday();
 	get_today();
       };
