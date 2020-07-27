@@ -319,6 +319,12 @@ img.bg {
       var words, todaywords, yesterdaywords;
 
       function type(letter, combno) {
+	document.getElementById("no-message").style.display = "inline";
+	document.getElementById("pangram").style.display = "none";
+	document.getElementById("already-found").style.display = "none";
+	document.getElementById("center-letter").style.display = "none";
+	document.getElementById("too-short").style.display = "none";
+	document.getElementById("not-in-list").style.display = "none";
 	document.getElementById("comb" + combno).style.height = "80px";
 	document.getElementById("comb" + combno).style.width = "80px";
 	document.getElementById("comb" + combno).style.left = parseInt(document.getElementById("comb" + combno).style.left) + 10 + "px";
@@ -580,15 +586,15 @@ img.bg {
 	  }
 	}
 
-	if (center == 0) {
-	  document.getElementById("no-message").style.display = "none";
-	  document.getElementById("center-letter").style.display = "inline";
-	  return;
-	}
-
 	if (guess.length < 4) {
 	  document.getElementById("no-message").style.display = "none";
 	  document.getElementById("too-short").style.display = "inline";
+	  return;
+	}
+
+	if (center == 0) {
+	  document.getElementById("no-message").style.display = "none";
+	  document.getElementById("center-letter").style.display = "inline";
 	  return;
 	}
 
