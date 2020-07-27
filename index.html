@@ -313,6 +313,7 @@ img.bg {
       var letters = [], todayletters = [];
       var points;
       var rank1, rank2, rank3, rank4, rank5, rank6, rank7, rank8, rank9;
+      var replaying;
       var total, todaytotal, yesterdaytotal;
       var win;
       var wordlist = [], todaywordlist = [], yesterdaywordlist = [];
@@ -486,9 +487,15 @@ img.bg {
 	rank9 = Math.floor(total * 0.70);
       }
 
+      function save_word() {
+	localStorage.setItem("foundwords", JSON.stringify(foundlist));
+      }
+
       function add_points() {
 	var one = 0, two = 0, three = 0, four = 0, five = 0, six = 0;
 	var i = 0, j = 0;
+
+	save_word();
 
 	i = guess.length;
 	if (i < 7) {
@@ -545,7 +552,7 @@ img.bg {
 	  if (guess == foundlist[i]) {
 	    document.getElementById("no-message").style.display = "none";
 	    document.getElementById("already-found").style.display = "inline";
-	    return;
+	    return 1;
 	  }
 	}
 
@@ -564,6 +571,8 @@ img.bg {
 	  alert("Congratulations! You found all the words!");
 	  all = 1;
 	}
+
+	return 0;
       }
 
       function check() {
@@ -576,9 +585,12 @@ img.bg {
 	document.getElementById("too-short").style.display = "none";
 	document.getElementById("not-in-list").style.display = "none";
 
-	guess = document.getElementById("guess").value.toLowerCase();
-
-	document.getElementById("player-guess").reset();
+	if (replaying === 0) {
+	  guess = document.getElementById("guess").value.toLowerCase();
+	  document.getElementById("player-guess").reset();
+	} else {
+	  guess = guess.toLowerCase();
+	}
 
 	for (i = 0; i < guess.length; i++) {
 	  if ("7" + guess[i] == letters[6]) {
@@ -589,23 +601,58 @@ img.bg {
 	if (guess.length < 4) {
 	  document.getElementById("no-message").style.display = "none";
 	  document.getElementById("too-short").style.display = "inline";
-	  return;
+	  return 1;
 	}
 
 	if (center == 0) {
 	  document.getElementById("no-message").style.display = "none";
 	  document.getElementById("center-letter").style.display = "inline";
-	  return;
+	  return 1;
 	}
 
 	for (i = 0; i < words; i++) {
 	  if (guess == wordlist[i]) {
-	    found_word();
-	    return;
+	    i = found_word();
+	    return i;
 	  }
 	}
 	document.getElementById("no-message").style.display = "none";
 	document.getElementById("not-in-list").style.display = "inline";
+
+	return 1;
+      }
+
+      function replay_words() {
+	var i, replay;
+
+	replaying = 1;
+
+	replay = JSON.parse(localStorage.getItem("foundwords"));
+
+	localStorage.clear();
+
+	for (i = 0; i < replay.length; i++) {
+	  guess = replay[i];
+
+	  if (check() == 1) {
+	    localStorage.clear();
+
+	    for (i = 0; i < found; i++) {
+	      foundlist.pop();
+	    }
+
+	    all = 0;
+	    found = 0;
+	    points = 0;
+	    rank = "Newbie";
+	    win = 0;
+	    replaying = 0;
+
+	    return;
+	  }
+	}
+
+	replaying = 0;
       }
 
       function daily() {
@@ -619,6 +666,7 @@ img.bg {
 	found = 0;
 	points = 0;
 	rank = "Newbie";
+	replaying = 0;
 	win = 0;
 
 	document.getElementById("points-update").innerHTML = points;
@@ -652,6 +700,8 @@ img.bg {
 	total = todaytotal;
 	wordlist = todaywordlist;
 	set_rank();
+	if (localStorage.hasOwnProperty("foundwords") === true)
+		replay_words();
 	document.getElementById("update-random").innerHTML = yesterdaywordlist.join("<br />") + "<br />" + "<br />Total words:  " + yesterdaywords + "<br />Total points: " + yesterdaytotal + "<br />Points for Queen Bee: " + Math.floor(yesterdaytotal * 0.70);
 	display();
       }
