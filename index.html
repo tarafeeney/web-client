@@ -307,6 +307,7 @@ img.bg {
 
     <script type="text/javascript">
       var all;
+      var daily_play;
       var found;
       var foundlist = [];
       var guess;
@@ -495,7 +496,9 @@ img.bg {
 	var one = 0, two = 0, three = 0, four = 0, five = 0, six = 0;
 	var i = 0, j = 0;
 
-	save_word();
+	if (daily_play === 1) {
+	  save_word();
+	}
 
 	i = guess.length;
 	if (i < 7) {
@@ -646,17 +649,34 @@ img.bg {
 	    points = 0;
 	    rank = "Newbie";
 	    win = 0;
+
+	    document.getElementById("no-message").style.display = "inline";
+	    document.getElementById("pangram").style.display = "none";
+	    document.getElementById("already-found").style.display = "none";
+	    document.getElementById("center-letter").style.display = "none";
+	    document.getElementById("too-short").style.display = "none";
+	    document.getElementById("not-in-list").style.display = "none";
+
 	    replaying = 0;
 
 	    return;
 	  }
 	}
 
+	document.getElementById("no-message").style.display = "inline";
+	document.getElementById("pangram").style.display = "none";
+	document.getElementById("already-found").style.display = "none";
+	document.getElementById("center-letter").style.display = "none";
+	document.getElementById("too-short").style.display = "none";
+	document.getElementById("not-in-list").style.display = "none";
+
 	replaying = 0;
       }
 
       function daily() {
 	var i;
+
+	daily_play = 1;
 
 	for (i = 0; i < found; i++) {
 	  foundlist.pop();
@@ -793,6 +813,8 @@ img.bg {
       function random() {
 	var xhttp = new XMLHttpRequest();
 	var i;
+
+	daily_play = 0;
 
 	for (i = 0; i < found; i++) {
 	  foundlist.pop();
