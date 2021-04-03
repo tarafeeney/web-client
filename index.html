@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2020 Brian Callahan <bcallah@openbsd.org>
+Copyright (c) 2020-2021 Brian Callahan <bcallah@openbsd.org>
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -26,7 +26,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 	<style>
 * {
-	background: #fbfcff;
 	color: #2d4654;
 	font-family: "Noto Sans", Calibri, sans-serif;
 }        
@@ -205,8 +204,12 @@ img.bg {
 	display: block;
 }
 
-#dictionary {
-	text-align: right;
+.dictionary {
+	float: right;
+}
+
+.dmb {
+	text-align: left;
 }
 	</style>
     </head>
@@ -293,8 +296,8 @@ img.bg {
     <br />
 
     <div class="restart">
-      <div class="restart-daily">
-	<button onclick="daily(0)">Restart daily game</button>
+      <div id="restart-daily-button" class="restart-daily">
+	<button onclick="daily()">Return to daily game</button>
       </div>
       <div class="restart-random">
 	<button onclick="random()">New random game</button>
@@ -306,9 +309,15 @@ img.bg {
 
     <br />
     <br />
-    <p id="dictionary">
-      <a href="https://github.com/freebee-game/enable/issues">Request dictionary additions</a>
-    </p>
+    <br />
+    <div>
+      <span class="dmb">
+	<button class="dmb" onclick="darkmode()">Switch Dark/Light mode</button>
+      </span>
+      <span class="dictionary">
+	<a href="https://github.com/freebee-game/enable/issues">Request dictionary changes</a>
+      </span>
+    </div>
     <hr />
     <p id="footer">Free Bee is brought to you by Studio Urban Homestead | OpenBSD httpd</p>
 
@@ -326,6 +335,29 @@ img.bg {
       var win;
       var wordlist = [], todaywordlist = [], yesterdaywordlist = [];
       var words, todaywords, yesterdaywords;
+      var dark;
+
+      function darkmode() {
+	if (dark == 1) {
+	  var x = document.querySelectorAll('*');
+	  for (var i = 0; i < x.length; i++) {
+	    if (x[i].className != "fg" && x[i].className != "bg") {
+	      x[i].style.background = "#fbfcff";
+	    }
+	  }
+	  dark = 0;
+	  localStorage.setItem("useDarkMode", 1);
+	} else {
+	  var x = document.querySelectorAll('*');
+	  for (var i = 0; i < x.length; i++) {
+	    if (x[i].className != "fg" && x[i].className != "bg") {
+	      x[i].style.background = "#111111";
+	    }
+	  }
+	  dark = 1;
+	  localStorage.setItem("useDarkMode", 0);
+	}
+      }
 
       function type(letter, combno) {
 	document.getElementById("no-message").style.display = "inline";
@@ -639,13 +671,13 @@ img.bg {
 
 	replay = JSON.parse(localStorage.getItem("foundwords"));
 
-	localStorage.clear();
+	localStorage.removeItem("foundwords");
 
 	for (i = 0; i < replay.length; i++) {
 	  guess = replay[i];
 
 	  if (check() == 1) {
-	    localStorage.clear();
+	    localStorage.removeItem("foundwords");
 
 	    for (i = 0; i < found; i++) {
 	      foundlist.pop();
@@ -680,18 +712,10 @@ img.bg {
 	replaying = 0;
       }
 
-      function daily(replay = 1) {
+      function daily() {
 	var i;
 
 	daily_play = 1;
-
-	if (replay == 0) {
-	  if (confirm("Are you sure you want to restart the game?")) {
-	    localStorage.clear();
-	  } else {
-	    return;
-	  }
-	}
 
 	for (i = 0; i < found; i++) {
 	  foundlist.pop();
@@ -709,6 +733,7 @@ img.bg {
 	document.getElementById("rank-update").innerHTML = rank;
 	document.getElementById("yesterday-or-random").innerHTML = "Yesterday's answers";
 	document.getElementById("random-answers").style.display = "none";
+	document.getElementById("restart-daily-button").style.visibility = "hidden";
 	document.getElementById("update-random").innerHTML = "";
 	document.getElementById("no-message").style.display = "inline";
 	document.getElementById("pangram").style.display = "none";
@@ -735,8 +760,9 @@ img.bg {
 	total = todaytotal;
 	wordlist = todaywordlist;
 	set_rank();
-	if (localStorage.hasOwnProperty("foundwords") === true)
-		replay_words();
+	if (localStorage.hasOwnProperty("foundwords") === true) {
+	  replay_words();
+	}
 	document.getElementById("update-random").innerHTML = yesterdaywordlist.join("<br />") + "<br />" + "<br />Total words:  " + yesterdaywords + "<br />Total points: " + yesterdaytotal + "<br />Points for Queen Bee: " + Math.floor(yesterdaytotal * 0.70);
 	display();
       }
@@ -810,6 +836,12 @@ img.bg {
 	document.getElementById("comb7").style.top = "100px";
 	get_yesterday();
 	get_today();
+	if (localStorage.hasOwnProperty("useDarkMode") === true) {
+	  dark = Number(localStorage.getItem("useDarkMode"));
+	} else {
+	  dark = 1;
+	}
+	darkmode();
       };
 
       function shuffle() {
@@ -876,10 +908,11 @@ img.bg {
 	    set_rank();
 	    display();
 	    document.getElementById("random-answers").style.display = "block";
+	    document.getElementById("restart-daily-button").style.visibility = "visible";
 	  }
 	};
 
-	xhttp.open("GET", "../../cgi-bin/freebee-random", true);
+	xhttp.open("GET", "../../cgi-bin/random", true);
 	xhttp.send();
       }
 
