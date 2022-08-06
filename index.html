@@ -408,6 +408,7 @@ img.bg {
 	var didtouch = 0;
 
 	document.getElementById("play1").src = letters[0] + ".png";
+	document.getElementById("play1").alt = letters[0];
 	document.getElementById("play1").style.left = "21px";
 	document.getElementById("play1").style.top = "51px";
 	document.getElementById("play1").ontouchstart = function() {didtouch = 1; type(letters[0], 1)};
@@ -419,6 +420,7 @@ img.bg {
 	document.getElementById("play1").ontouchcancel = function() {untype()};
 
 	document.getElementById("play2").src = letters[1] + ".png";
+	document.getElementById("play2").alt = letters[1];
 	document.getElementById("play2").style.left = "100px";
 	document.getElementById("play2").style.top = "1px";
 	document.getElementById("play2").ontouchstart = function() {didtouch = 1; type(letters[1], 2)};
@@ -430,6 +432,7 @@ img.bg {
 	document.getElementById("play2").ontouchcancel = function() {untype()};
 
 	document.getElementById("play3").src = letters[2] + ".png";
+	document.getElementById("play3").alt = letters[2];
 	document.getElementById("play3").style.left = "179px";
 	document.getElementById("play3").style.top = "51px";
 	document.getElementById("play3").ontouchstart = function() {didtouch = 1; type(letters[2], 3)};
@@ -441,6 +444,7 @@ img.bg {
 	document.getElementById("play3").ontouchcancel = function() {untype()};
 
 	document.getElementById("play4").src = letters[3] + ".png";
+	document.getElementById("play4").alt = letters[3];
 	document.getElementById("play4").style.left = "21px";
 	document.getElementById("play4").style.top = "149px";
 	document.getElementById("play4").ontouchstart = function() {didtouch = 1; type(letters[3], 4)};
@@ -452,6 +456,7 @@ img.bg {
 	document.getElementById("play4").ontouchcancel = function() {untype()};
 
 	document.getElementById("play5").src = letters[4] + ".png";
+	document.getElementById("play5").alt = letters[4];
 	document.getElementById("play5").style.left = "100px";
 	document.getElementById("play5").style.top = "199px";
 	document.getElementById("play5").ontouchstart = function() {didtouch = 1; type(letters[4], 5)};
@@ -463,6 +468,7 @@ img.bg {
 	document.getElementById("play5").ontouchcancel = function() {untype()};
 
 	document.getElementById("play6").src = letters[5] + ".png";
+	document.getElementById("play6").alt = letters[5];
 	document.getElementById("play6").style.left = "179px";
 	document.getElementById("play6").style.top = "149px";
 	document.getElementById("play6").ontouchstart = function() {didtouch = 1; type(letters[5], 6)};
@@ -474,6 +480,7 @@ img.bg {
 	document.getElementById("play6").ontouchcancel = function() {untype()};
 
 	document.getElementById("play7").src = letters[6] + ".png";
+	document.getElementById("play7").alt = "center: " + letters[6][1];
 	document.getElementById("play7").style.left = "100px";
 	document.getElementById("play7").style.top = "100px";
 	document.getElementById("play7").ontouchstart = function() {didtouch = 1; type(letters[6][1], 7)};
