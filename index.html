@@ -480,7 +480,7 @@ img.bg {
 	document.getElementById("play6").ontouchcancel = function() {untype()};
 
 	document.getElementById("play7").src = letters[6] + ".png";
-	document.getElementById("play7").alt = letters[6];
+	document.getElementById("play7").alt = "center: " + letters[6][1];
 	document.getElementById("play7").style.left = "100px";
 	document.getElementById("play7").style.top = "100px";
 	document.getElementById("play7").ontouchstart = function() {didtouch = 1; type(letters[6][1], 7)};
