@@ -453,8 +453,8 @@ var all;
 		fetch('https://freebee.fun/cgi-bin/yesterday')
 		.then((response) => { return response.json() })
 		.then((gameObj) => { 
-			yesterdaywords = gameObj.words;
 			yesterdaytotal = gameObj.total;
+			yesterdaywords = gameObj.words;
 			yesterdaywordlist = gameObj.wordlist;
 			});
 		}
@@ -470,8 +470,8 @@ var all;
 		  todayletters[4] = gameObj.letters[4];
 		  todayletters[5] = gameObj.letters[5];
 		  todayletters[6] = "7" + gameObj.center;
-		  todaywords = gameObj.words;
 		  todaytotal = gameObj.total;
+		  todaywords = gameObj.words;
 		  todaywordlist = gameObj.wordlist;
 		  daily(); 
 		});
