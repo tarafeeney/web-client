@@ -1,29 +1,16 @@
-Free Bee web client
-===================
-This is the JavaScript-based web client for Free Bee.
+Optimizations
+1)Minimized the CSS code and got rid of unnecessary styling
+2)Moved the CSS to a seperate file
+3)moved JS to a seperate file
+4)changed reoccuring document.getelements to variable names 
+5)Minimized the untype function using document.querySelectorAll('.bg')
+6) Minimized the display function using document.querySelectorAll('.fg')
+7) added alt tags to images to makt the images identifiable and the game accessible
 
-What is Free Bee?
------------------
-Free Bee is an enhanced Free Software clone of The New York Times game
-Spelling Bee.
+Works Cited
+https://lms.rpi.edu/ultra/courses/_16392_1/cl/outline
 
-In this game, your goal is to find as many words as you can with the seven
-letters you are given. You don't have to use any letter except the middle
-letter and letters can be used more than once in a word. Finding a word
-that uses all seven letters yields bonus points! Every game has at least
-one such word, and many games have multiple.
-
-Earning enough points to reach the rank of Queen Bee wins the game!
-
-You can play the daily challenge like the original game or try your hand at a
-nearly infinite number of computer-generated random challenges. Unlike the
-original game, you are not restricted to only a single game per day!
-
-The only notable difference between Free Bee and the original game is the use
- of the ENABLE dictionary instead of the NYT dictionary. Patches welcome.
-
-Find us on the web at https://freebee.fun/
-
-License
--------
-ISC License. See LICENSE for details.
+Work Log
+10/24 Began lab in class - minimized CSS, moved CSS/JS files, added alt tages, changed document.getelements
+10/30 Finished lab - minimized javascript functions and worked on making the API work (by adding fetch calls, does not entirely work)
+10/31 uploaded to azure server
